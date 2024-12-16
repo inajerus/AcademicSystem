@@ -8,11 +8,11 @@ public class DatabaseConnection
 
     public DatabaseConnection()
     {
-        string connectionString = "server=localhost;database=SPP;user=root;password=root;";
+        string connectionString = "server=localhost;database=academicsystem;user=root;password=root;";
         connection = new MySqlConnection(connectionString);
     }
 
-    public void OpenConnection()º
+    public void OpenConnection()
     {
         if (connection.State == System.Data.ConnectionState.Closed)
         {

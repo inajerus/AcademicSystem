@@ -68,6 +68,8 @@ namespace AcademicSystem
 
                 if (reader.HasRows)
                 {
+                    reader.Read();
+                    int userID = Convert.ToInt32(reader["UserID"]); // Obtener el UserID del usuario logueado
                     MessageBox.Show("Login successful!");
 
                     // Redirigir al panel correspondiente según el rol
@@ -79,7 +81,7 @@ namespace AcademicSystem
                             break;
 
                         case "Lecturer":
-                            LecturerDashboard lecturerDashboard = new LecturerDashboard();
+                            LecturerDashboard lecturerDashboard = new LecturerDashboard(userID);
                             lecturerDashboard.Show();
                             break;
 
