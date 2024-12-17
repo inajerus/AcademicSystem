@@ -30,6 +30,10 @@ namespace AcademicSystem
             LoadStudentsToComboBox();            // Cargar estudiantes en cmbStudents
             LoadGroupsForStudentsToComboBox();   // Cargar grupos en cmbGroupsForStudents
             LoadStudentGroups();
+            LoadLecturersToComboBox();     // Cargar profesores
+            LoadLecturerCourses();                // Cargar asignaciones existentes
+            LoadCoursesForLecturersToComboBox();     // Cargar cursos para asignar a lecturers
+
         }
 
         private void btnCreateGroup_Click(object sender, EventArgs e)
@@ -563,6 +567,125 @@ namespace AcademicSystem
                 MessageBox.Show("Error loading student groups: " + ex.Message);
             }
         }
+        private void LoadLecturersToComboBox()
+        {
+            try
+            {
+                DatabaseConnection db = new DatabaseConnection();
+                db.OpenConnection();
+
+                string query = "SELECT UserID, Username FROM Users WHERE Role = 'Lecturer'";
+                MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                cmbLecturers.Items.Clear();
+                while (reader.Read())
+                {
+                    cmbLecturers.Items.Add(new { Text = reader["Username"].ToString(), Value = reader["UserID"] });
+                }
+
+                db.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading lecturers: " + ex.Message);
+            }
+        }
+
+        private void btnAssignLecturerToCourse_Click(object sender, EventArgs e)
+        {
+            if (cmbLecturers.SelectedItem == null || cmbCoursesForLecturers.SelectedItem == null)
+            {
+                MessageBox.Show("Please select both a lecturer and a course.");
+                return;
+            }
+
+            var lecturer = (dynamic)cmbLecturers.SelectedItem;
+            var course = (dynamic)cmbCoursesForLecturers.SelectedItem;
+
+            int lecturerID = lecturer.Value;
+            int courseID = course.Value;
+
+            try
+            {
+                DatabaseConnection db = new DatabaseConnection();
+                db.OpenConnection();
+
+                string query = "INSERT INTO LecturerCourses (LecturerID, CourseID) VALUES (@lecturerID, @courseID)";
+                MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
+                cmd.Parameters.AddWithValue("@lecturerID", lecturerID);
+                cmd.Parameters.AddWithValue("@courseID", courseID);
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Lecturer assigned to course successfully!");
+
+                db.CloseConnection();
+
+                LoadLecturerCourses(); // Refrescar el DataGridView
+            }
+            catch (MySqlException ex) when (ex.Number == 1062)
+            {
+                MessageBox.Show("This lecturer is already assigned to this course.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+        private void LoadLecturerCourses()
+        {
+            try
+            {
+                DatabaseConnection db = new DatabaseConnection();
+                db.OpenConnection();
+
+                string query = @"
+            SELECT lc.LecturerID, u.Username AS LecturerName, c.CourseName
+            FROM LecturerCourses lc
+            JOIN Users u ON lc.LecturerID = u.UserID
+            JOIN Courses c ON lc.CourseID = c.CourseID";
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.GetConnection());
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                dgvLecturerCourses.DataSource = table;
+
+                db.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading lecturer courses: " + ex.Message);
+            }
+        }
+        private void LoadCoursesForLecturersToComboBox()
+        {
+            try
+            {
+                DatabaseConnection db = new DatabaseConnection();
+                db.OpenConnection();
+
+                string query = "SELECT CourseID, CourseName FROM `Courses`";
+                MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                cmbCoursesForLecturers.Items.Clear();
+                while (reader.Read())
+                {
+                    cmbCoursesForLecturers.Items.Add(new { Text = reader["CourseName"].ToString(), Value = reader["CourseID"] });
+                }
+
+                cmbCoursesForLecturers.DisplayMember = "Text";
+                cmbCoursesForLecturers.ValueMember = "Value";
+
+                db.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading courses: " + ex.Message);
+            }
+        }
+
 
     }
 }

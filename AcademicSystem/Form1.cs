@@ -86,7 +86,7 @@ namespace AcademicSystem
                             break;
 
                         case "Student":
-                            StudentDashboard studentDashboard = new StudentDashboard();
+                            StudentDashboard studentDashboard = new StudentDashboard(Convert.ToInt32(reader["UserID"]));
                             studentDashboard.Show();
                             break;
                     }

@@ -60,11 +60,18 @@
             this.cmbGroupsForStudents = new System.Windows.Forms.ComboBox();
             this.btnAssignStudent = new System.Windows.Forms.Button();
             this.dgvStudentGroups = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cmbCoursesForLecturers = new System.Windows.Forms.ComboBox();
+            this.cmbLecturers = new System.Windows.Forms.ComboBox();
+            this.btnAssignLecturerToCourse = new System.Windows.Forms.Button();
+            this.dgvLecturerCourses = new System.Windows.Forms.DataGridView();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCourses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGroupCourses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudentGroups)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLecturerCourses)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -221,7 +228,7 @@
             // 
             // btnDeleteGroup
             // 
-            this.btnDeleteGroup.Location = new System.Drawing.Point(708, 74);
+            this.btnDeleteGroup.Location = new System.Drawing.Point(657, 52);
             this.btnDeleteGroup.Name = "btnDeleteGroup";
             this.btnDeleteGroup.Size = new System.Drawing.Size(137, 23);
             this.btnDeleteGroup.TabIndex = 16;
@@ -231,7 +238,7 @@
             // 
             // btnDeleteCourse
             // 
-            this.btnDeleteCourse.Location = new System.Drawing.Point(708, 201);
+            this.btnDeleteCourse.Location = new System.Drawing.Point(657, 188);
             this.btnDeleteCourse.Name = "btnDeleteCourse";
             this.btnDeleteCourse.Size = new System.Drawing.Size(137, 23);
             this.btnDeleteCourse.TabIndex = 17;
@@ -241,7 +248,7 @@
             // 
             // btnDeleteUser
             // 
-            this.btnDeleteUser.Location = new System.Drawing.Point(720, 368);
+            this.btnDeleteUser.Location = new System.Drawing.Point(657, 354);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(125, 23);
             this.btnDeleteUser.TabIndex = 18;
@@ -294,7 +301,7 @@
             // 
             this.btnAssignCourse.Location = new System.Drawing.Point(119, 554);
             this.btnAssignCourse.Name = "btnAssignCourse";
-            this.btnAssignCourse.Size = new System.Drawing.Size(121, 23);
+            this.btnAssignCourse.Size = new System.Drawing.Size(134, 23);
             this.btnAssignCourse.TabIndex = 23;
             this.btnAssignCourse.Text = "Assign Course";
             this.btnAssignCourse.UseVisualStyleBackColor = true;
@@ -364,11 +371,71 @@
             this.dgvStudentGroups.Size = new System.Drawing.Size(240, 150);
             this.dgvStudentGroups.TabIndex = 30;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(654, 494);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(96, 16);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Select Lecturer";
+            // 
+            // cmbCoursesForLecturers
+            // 
+            this.cmbCoursesForLecturers.FormattingEnabled = true;
+            this.cmbCoursesForLecturers.Location = new System.Drawing.Point(777, 526);
+            this.cmbCoursesForLecturers.Name = "cmbCoursesForLecturers";
+            this.cmbCoursesForLecturers.Size = new System.Drawing.Size(121, 24);
+            this.cmbCoursesForLecturers.TabIndex = 32;
+            // 
+            // cmbLecturers
+            // 
+            this.cmbLecturers.FormattingEnabled = true;
+            this.cmbLecturers.Location = new System.Drawing.Point(777, 491);
+            this.cmbLecturers.Name = "cmbLecturers";
+            this.cmbLecturers.Size = new System.Drawing.Size(121, 24);
+            this.cmbLecturers.TabIndex = 34;
+            // 
+            // btnAssignLecturerToCourse
+            // 
+            this.btnAssignLecturerToCourse.Location = new System.Drawing.Point(673, 554);
+            this.btnAssignLecturerToCourse.Name = "btnAssignLecturerToCourse";
+            this.btnAssignLecturerToCourse.Size = new System.Drawing.Size(185, 23);
+            this.btnAssignLecturerToCourse.TabIndex = 35;
+            this.btnAssignLecturerToCourse.Text = "Assign Lecturer to Course";
+            this.btnAssignLecturerToCourse.UseVisualStyleBackColor = true;
+            this.btnAssignLecturerToCourse.Click += new System.EventHandler(this.btnAssignLecturerToCourse_Click);
+            // 
+            // dgvLecturerCourses
+            // 
+            this.dgvLecturerCourses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLecturerCourses.Location = new System.Drawing.Point(943, 456);
+            this.dgvLecturerCourses.Name = "dgvLecturerCourses";
+            this.dgvLecturerCourses.RowHeadersWidth = 51;
+            this.dgvLecturerCourses.RowTemplate.Height = 24;
+            this.dgvLecturerCourses.Size = new System.Drawing.Size(240, 150);
+            this.dgvLecturerCourses.TabIndex = 36;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(654, 524);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(91, 16);
+            this.label13.TabIndex = 37;
+            this.label13.Text = "Select Course";
+            // 
             // AdminDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 832);
+            this.ClientSize = new System.Drawing.Size(1369, 825);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.dgvLecturerCourses);
+            this.Controls.Add(this.btnAssignLecturerToCourse);
+            this.Controls.Add(this.cmbLecturers);
+            this.Controls.Add(this.cmbCoursesForLecturers);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.dgvStudentGroups);
             this.Controls.Add(this.btnAssignStudent);
             this.Controls.Add(this.cmbGroupsForStudents);
@@ -409,6 +476,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvGroups)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGroupCourses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudentGroups)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLecturerCourses)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,5 +516,11 @@
         private System.Windows.Forms.ComboBox cmbGroupsForStudents;
         private System.Windows.Forms.Button btnAssignStudent;
         private System.Windows.Forms.DataGridView dgvStudentGroups;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cmbCoursesForLecturers;
+        private System.Windows.Forms.ComboBox cmbLecturers;
+        private System.Windows.Forms.Button btnAssignLecturerToCourse;
+        private System.Windows.Forms.DataGridView dgvLecturerCourses;
+        private System.Windows.Forms.Label label13;
     }
 }
